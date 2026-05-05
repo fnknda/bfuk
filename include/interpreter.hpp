@@ -18,8 +18,8 @@ enum class State
 class Interpreter {
  private:
 	State m_state {State::Stopped};
+	uint8_t m_steps {0};
 	size_t m_head {0};
-	size_t m_steps {0};
 	size_t m_instruction_pointer {0};
 	std::string m_code {std::string("++++++[>++++++++<-]++++++++++[>.+<-]")};
 	std::stringstream m_output;
