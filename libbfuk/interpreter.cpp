@@ -135,7 +135,10 @@ void Interpreter::step()
 	}
 
 	if (m_state == State::Paused) {
-		return;
+		if (m_steps > 0)
+			m_steps--;
+		else
+			return;
 	}
 
 	switch (m_code[m_instruction_pointer]) {
@@ -151,10 +154,12 @@ void Interpreter::step()
 		case '<':
 			--m_head;
 			break;
-		case ',':
-			m_state = State::WaitingInput;
-			m_input_m.lock();
-			m_state = State::Running;
+		case ',': {
+				auto old_state = m_state;
+				m_state = State::WaitingInput;
+				m_input_m.lock();
+				m_state = old_state;
+			}
 			m_vector[m_head] = m_input;
 			if (m_vector[m_head] >= '0' && m_vector[m_head] <= '9') {
 				m_vector[m_head] -= '0';
@@ -216,4 +221,10 @@ void Interpreter::toggle_pause()
 	else if (m_state == State::Running) {
 		m_state = State::Paused;
 	}
+}
+
+void Interpreter::send_step()
+{
+	if (m_state == State::Paused)
+		m_steps = 1;
 }

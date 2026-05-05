@@ -28,6 +28,9 @@ int main(int argc, char* argv[])
 					case 'q':
 						interpreter.interrupt();
 						break;
+					case 's':
+						interpreter.send_step();
+						break;
 					case ' ':
 						interpreter.toggle_pause();
 						break;

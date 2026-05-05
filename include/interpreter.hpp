@@ -19,6 +19,7 @@ class Interpreter {
  private:
 	State m_state {State::Stopped};
 	size_t m_head {0};
+	size_t m_steps {0};
 	size_t m_instruction_pointer {0};
 	std::string m_code {std::string("++++++[>++++++++<-]++++++++++[>.+<-]")};
 	std::stringstream m_output;
@@ -43,4 +44,5 @@ class Interpreter {
 	void interrupt();
 	void toggle_pause();
 	void send_input(unsigned char input);
+	void send_step();
 };

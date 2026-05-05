@@ -11,4 +11,5 @@ Any character not identified as a brainfuck instruction is ignored (but presente
 ## Controls
 
 * `[space]`: pause and continue the execution
+* `s`: step execution (only when paused)
 * `q`: quit the program
